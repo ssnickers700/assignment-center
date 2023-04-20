@@ -1,0 +1,61 @@
+package com.example.assignmentcenter.fragments
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.assignmentcenter.adapters.AssignmentImagesAdapter
+import com.example.assignmentcenter.Navigable
+import com.example.assignmentcenter.data.AssignmentDatabase
+import com.example.assignmentcenter.data.model.AssignmentEntity
+import com.example.assignmentcenter.databinding.FragmentEditBinding
+import kotlin.concurrent.thread
+
+
+class EditFragment : Fragment() {
+
+    private lateinit var binding: FragmentEditBinding
+    private lateinit var adapter: AssignmentImagesAdapter
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return FragmentEditBinding.inflate(inflater, container, false).also {
+            binding = it
+        }.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        adapter = AssignmentImagesAdapter()
+        binding.images.apply {
+            adapter = this@EditFragment.adapter
+            layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+        }
+
+        binding.save.setOnClickListener {
+
+            val newAssignment = AssignmentEntity(
+                icon = resources.getResourceEntryName(adapter.selectedIdRes),
+                name = binding.assignmentNameEdit.text.toString(),
+                note = binding.assignmentNoteEdit.text.toString(),
+                priority = Integer.parseInt(binding.assignmentPriorityEdit.text.toString()),
+            )
+
+            thread {
+                AssignmentDatabase.open(requireContext()).assignments.addAssignment(newAssignment)
+                (activity as? Navigable)?.navigate(Navigable.Destination.List)
+            }
+        }
+    }
+
+
+}
