@@ -50,7 +50,7 @@ class ListFragment : Fragment() {
     fun loadData() = thread {
         val assignments = AssignmentDatabase
             .open(requireContext())
-            .assignments.getAll()
+            .assignments.getAllSortedByPriority()
             .map {entity ->
                 Assignment(
                     resources.getIdentifier(
@@ -64,7 +64,7 @@ class ListFragment : Fragment() {
                 )
             }
 //        requireActivity().runOnUiThread {
-            adapter?.replace(assignments)
+        adapter?.replace(assignments)
 //        }
     }
 

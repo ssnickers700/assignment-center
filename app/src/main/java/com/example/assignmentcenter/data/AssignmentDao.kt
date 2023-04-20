@@ -12,7 +12,7 @@ interface AssignmentDao {
     @Query("SELECT * FROM assignment")
     fun getAll(): List<AssignmentEntity>
 
-    @Query("SELECT * FROM assignment ORDER BY priority DESC")
+    @Query("SELECT * FROM assignment ORDER BY priority ASC")
     fun getAllSortedByPriority(): List<AssignmentEntity>
 
     @Insert
