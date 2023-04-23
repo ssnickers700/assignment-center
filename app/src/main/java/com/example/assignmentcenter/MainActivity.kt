@@ -10,14 +10,6 @@ class MainActivity : AppCompatActivity(), Navigable {
 
     private lateinit var listFragment: ListFragment
 
-    /*private val db by lazy {
-        Room.databaseBuilder(
-            applicationContext,
-            AssignmentDatabase::class.java,
-            "assignments-db"
-        ).build()
-    }*/
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -17,12 +17,19 @@ class AssignmentViewHolder(val binding: ListItemBinding)
         binding.assignmentName.text = assignment.name
         binding.assignmentNote.text = assignment.note
         binding.image.setImageResource(assignment.resId)
+
     }
 }
 
 class AssignmentAdapter : RecyclerView.Adapter<AssignmentViewHolder>() {
     private val data = mutableListOf<Assignment>()
     private val handler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
+    private var onLongClickListener: OnLongClickListener? = null
+
+    interface OnLongClickListener {
+        fun onLongClick(assignment: Assignment)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentViewHolder {
         val binding = ListItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -36,16 +43,19 @@ class AssignmentAdapter : RecyclerView.Adapter<AssignmentViewHolder>() {
 
     override fun onBindViewHolder(holder: AssignmentViewHolder, position: Int) {
         holder.bind(data[position])
+        holder.itemView.setOnLongClickListener {
+            onLongClickListener?.onLongClick(data[position])
+            true
+        }
     }
 
     fun replace(newData: List<Assignment>) {
-        val callBack = AssignmentCallBack(data, newData)
+        //val callBack = AssignmentCallBack(data, newData)
         data.clear()
         data.addAll(newData)
-        val result = DiffUtil.calculateDiff(callBack)
-        handler.post {
-            result.dispatchUpdatesTo(this)
-        }
+        notifyDataSetChanged()
+        //val result = DiffUtil.calculateDiff(callBack)
+        //result.dispatchUpdatesTo(this)
     }
 
     fun sort() {
@@ -56,5 +66,9 @@ class AssignmentAdapter : RecyclerView.Adapter<AssignmentViewHolder>() {
         handler.post {
             result.dispatchUpdatesTo(this)
         }
+    }
+
+    fun setOnLongClickListener(listener: OnLongClickListener) {
+        onLongClickListener = listener
     }
 }

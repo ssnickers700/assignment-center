@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.assignmentcenter.adapters.AssignmentAdapter
 import com.example.assignmentcenter.Navigable
@@ -14,7 +15,7 @@ import com.example.assignmentcenter.model.Assignment
 import kotlin.concurrent.thread
 
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(), AssignmentAdapter.OnLongClickListener {
 
     private lateinit var binding: FragmentListBinding
     private var adapter: AssignmentAdapter? = null
@@ -45,6 +46,8 @@ class ListFragment : Fragment() {
         binding.btSort.setOnClickListener {
             adapter?.sort()
         }
+
+        adapter?.setOnLongClickListener(this)
     }
 
     fun loadData() = thread {
@@ -53,6 +56,7 @@ class ListFragment : Fragment() {
             .assignments.getAllSortedByPriority()
             .map {entity ->
                 Assignment(
+                    entity.id,
                     resources.getIdentifier(
                         entity.icon,
                         "drawable",
@@ -63,14 +67,36 @@ class ListFragment : Fragment() {
                     entity.priority
                 )
             }
-//        requireActivity().runOnUiThread {
-        adapter?.replace(assignments)
-//        }
+        requireActivity().runOnUiThread {
+            adapter?.replace(assignments)
+        }
     }
 
     override fun onStart() {
         super.onStart()
         loadData()
+    }
+
+    override fun onLongClick(assignment: Assignment) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Remove Assignment")
+            .setMessage("Are you sure you want to remove this item?")
+            .setPositiveButton("Yes") { _, _ ->
+                thread {
+                    // Remove the item from the database
+                    val assignmentDatabase = AssignmentDatabase.open(requireContext())
+                    val assignmentEntity = assignmentDatabase.assignments.getAll().firstOrNull { it.id == assignment.id }
+                    assignmentEntity?.let { assignmentDatabase.assignments.delete(it) }
+
+
+                    // Refresh the list
+                    requireActivity().runOnUiThread {
+                        loadData()
+                    }
+                }
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
 }
