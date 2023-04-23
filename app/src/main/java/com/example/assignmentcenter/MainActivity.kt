@@ -2,9 +2,11 @@ package com.example.assignmentcenter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.example.assignmentcenter.fragments.EditFragment
 import com.example.assignmentcenter.fragments.ListFragment
+import com.example.assignmentcenter.fragments.PreviewFragment
 
 class MainActivity : AppCompatActivity(), Navigable {
 
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity(), Navigable {
             .commit()
     }
 
-    override fun navigate(to: Navigable.Destination) {
+    override fun navigate(to: Navigable.Destination, fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             when (to) {
                 Navigable.Destination.List -> replace(
@@ -32,6 +34,11 @@ class MainActivity : AppCompatActivity(), Navigable {
                     replace(R.id.container, EditFragment(), EditFragment::class.java.name)
                     addToBackStack(EditFragment::class.java.name)
                 }
+                Navigable.Destination.Preview -> {
+                    replace(R.id.container, fragment)
+                    addToBackStack(null)
+                }
+
             }
         }.commit()
     }

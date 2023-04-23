@@ -1,7 +1,10 @@
 package com.example.assignmentcenter.model
 
+import android.os.Parcelable
 import androidx.annotation.DrawableRes
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Assignment(
     val id: Long,
     @DrawableRes
@@ -9,4 +12,4 @@ data class Assignment(
     val name: String,
     val note: String,
     val priority: Int,
-)
+): Parcelable

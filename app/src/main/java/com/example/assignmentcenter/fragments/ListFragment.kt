@@ -9,13 +9,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.assignmentcenter.adapters.AssignmentAdapter
 import com.example.assignmentcenter.Navigable
+import com.example.assignmentcenter.R
 import com.example.assignmentcenter.data.AssignmentDatabase
 import com.example.assignmentcenter.databinding.FragmentListBinding
 import com.example.assignmentcenter.model.Assignment
 import kotlin.concurrent.thread
 
 
-class ListFragment : Fragment(), AssignmentAdapter.OnLongClickListener {
+class ListFragment : Fragment(), AssignmentAdapter.OnClickListener {
 
     private lateinit var binding: FragmentListBinding
     private var adapter: AssignmentAdapter? = null
@@ -47,7 +48,7 @@ class ListFragment : Fragment(), AssignmentAdapter.OnLongClickListener {
             adapter?.sort()
         }
 
-        adapter?.setOnLongClickListener(this)
+        adapter?.setOnClickListener(this)
     }
 
     fun loadData() = thread {
@@ -83,13 +84,10 @@ class ListFragment : Fragment(), AssignmentAdapter.OnLongClickListener {
             .setMessage("Are you sure you want to remove this item?")
             .setPositiveButton("Yes") { _, _ ->
                 thread {
-                    // Remove the item from the database
                     val assignmentDatabase = AssignmentDatabase.open(requireContext())
                     val assignmentEntity = assignmentDatabase.assignments.getAll().firstOrNull { it.id == assignment.id }
                     assignmentEntity?.let { assignmentDatabase.assignments.delete(it) }
 
-
-                    // Refresh the list
                     requireActivity().runOnUiThread {
                         loadData()
                     }
@@ -97,6 +95,19 @@ class ListFragment : Fragment(), AssignmentAdapter.OnLongClickListener {
             }
             .setNegativeButton("No", null)
             .show()
+    }
+
+    override fun onClick(assignment: Assignment) {
+        val previewFragment = PreviewFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("assignment", assignment)
+            }
+        }
+        (activity as? Navigable)?.navigate(Navigable.Destination.Preview, previewFragment)
+        /*requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.container, previewFragment)
+            .addToBackStack(null)
+            .commit()*/
     }
 
 }

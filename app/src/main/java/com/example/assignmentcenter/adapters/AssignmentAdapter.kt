@@ -24,10 +24,11 @@ class AssignmentViewHolder(val binding: ListItemBinding)
 class AssignmentAdapter : RecyclerView.Adapter<AssignmentViewHolder>() {
     private val data = mutableListOf<Assignment>()
     private val handler: Handler = HandlerCompat.createAsync(Looper.getMainLooper())
-    private var onLongClickListener: OnLongClickListener? = null
+    private var onClickListener: OnClickListener? = null
 
-    interface OnLongClickListener {
+    interface OnClickListener {
         fun onLongClick(assignment: Assignment)
+        fun onClick(assignment: Assignment)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentViewHolder {
@@ -44,8 +45,11 @@ class AssignmentAdapter : RecyclerView.Adapter<AssignmentViewHolder>() {
     override fun onBindViewHolder(holder: AssignmentViewHolder, position: Int) {
         holder.bind(data[position])
         holder.itemView.setOnLongClickListener {
-            onLongClickListener?.onLongClick(data[position])
+            onClickListener?.onLongClick(data[position])
             true
+        }
+        holder.itemView.setOnClickListener {
+            onClickListener?.onClick(data[position])
         }
     }
 
@@ -68,7 +72,7 @@ class AssignmentAdapter : RecyclerView.Adapter<AssignmentViewHolder>() {
         }
     }
 
-    fun setOnLongClickListener(listener: OnLongClickListener) {
-        onLongClickListener = listener
+    fun setOnClickListener(listener: OnClickListener) {
+        onClickListener = listener
     }
 }
