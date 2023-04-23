@@ -43,11 +43,13 @@ class EditFragment : Fragment() {
 
         binding.save.setOnClickListener {
 
+            val priorityInput = binding.assignmentPriorityEdit.text.toString()
+
             val newAssignment = AssignmentEntity(
                 icon = resources.getResourceEntryName(adapter.selectedIdRes),
                 name = binding.assignmentNameEdit.text.toString(),
                 note = binding.assignmentNoteEdit.text.toString(),
-                priority = Integer.parseInt(binding.assignmentPriorityEdit.text.toString()),
+                priority = if (priorityInput.isNotBlank()) Integer.parseInt(priorityInput) else 0,
             )
 
             thread {

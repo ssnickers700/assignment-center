@@ -18,7 +18,11 @@ class AssignmentImagesViewHolder(val binding: AssignmentImageBinding)
 
 class AssignmentImagesAdapter : RecyclerView.Adapter<AssignmentImagesViewHolder>() {
 
-    private val images = listOf(R.drawable.code, R.drawable.pet)
+    private val images = listOf(
+        R.drawable.code, R.drawable.pet, R.drawable.home, R.drawable.study,
+        R.drawable.tax, R.drawable.food, R.drawable.shopping, R.drawable.sport,
+        R.drawable.baby, R.drawable.car, R.drawable.travel
+    )
     private var selectedPosition: Int = 0
     val selectedIdRes: Int
         get() = images[selectedPosition]
