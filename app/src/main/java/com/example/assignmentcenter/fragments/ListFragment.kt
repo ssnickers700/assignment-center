@@ -70,6 +70,7 @@ class ListFragment : Fragment(), AssignmentAdapter.OnClickListener {
             }
         requireActivity().runOnUiThread {
             adapter?.replace(assignments)
+            updateItemCount()
         }
     }
 
@@ -104,10 +105,10 @@ class ListFragment : Fragment(), AssignmentAdapter.OnClickListener {
             }
         }
         (activity as? Navigable)?.navigate(Navigable.Destination.Preview, previewFragment)
-        /*requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, previewFragment)
-            .addToBackStack(null)
-            .commit()*/
+    }
+
+    private fun updateItemCount() {
+        binding.itemCount.text = "Items: ${adapter?.itemCount ?: 0}"
     }
 
 }
