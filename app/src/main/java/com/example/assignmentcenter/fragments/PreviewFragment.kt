@@ -44,7 +44,12 @@ class PreviewFragment : Fragment() {
         }
 
         binding.edit.setOnClickListener {
-
+            val editFragment = EditFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("assignment", assignment)
+                }
+            }
+            (activity as? Navigable)?.navigate(Navigable.Destination.Edit, editFragment)
         }
     }
 

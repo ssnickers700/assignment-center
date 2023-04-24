@@ -11,6 +11,7 @@ import com.example.assignmentcenter.Navigable
 import com.example.assignmentcenter.data.AssignmentDatabase
 import com.example.assignmentcenter.data.model.AssignmentEntity
 import com.example.assignmentcenter.databinding.FragmentEditBinding
+import com.example.assignmentcenter.model.Assignment
 import kotlin.concurrent.thread
 
 
@@ -41,11 +42,19 @@ class EditFragment : Fragment() {
             )
         }
 
-        binding.save.setOnClickListener {
+        val assignment = arguments?.getParcelable<Assignment>("assignment")
+        assignment?.let {
+            binding.assignmentNameEdit.setText(it.name)
+            binding.assignmentNoteEdit.setText(it.note)
+            binding.assignmentPriorityEdit.setText(it.priority.toString())
+            adapter.selectedIdRes = it.resId
+        }
 
+        binding.save.setOnClickListener {
             val priorityInput = binding.assignmentPriorityEdit.text.toString()
 
             val newAssignment = AssignmentEntity(
+                id = assignment?.id ?: 0,
                 icon = resources.getResourceEntryName(adapter.selectedIdRes),
                 name = binding.assignmentNameEdit.text.toString(),
                 note = binding.assignmentNoteEdit.text.toString(),
@@ -53,7 +62,12 @@ class EditFragment : Fragment() {
             )
 
             thread {
-                AssignmentDatabase.open(requireContext()).assignments.addAssignment(newAssignment)
+                val assignmentDatabase = AssignmentDatabase.open(requireContext())
+                if (assignment != null) {
+                    assignmentDatabase.assignments.updateAssignment(newAssignment)
+                } else {
+                    assignmentDatabase.assignments.addAssignment(newAssignment)
+                }
                 (activity as? Navigable)?.navigate(Navigable.Destination.List)
             }
         }

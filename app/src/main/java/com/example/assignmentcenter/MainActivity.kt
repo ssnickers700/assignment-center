@@ -35,10 +35,17 @@ class MainActivity : AppCompatActivity(), Navigable {
                     addToBackStack(EditFragment::class.java.name)
                 }
                 Navigable.Destination.Preview -> {
-                    replace(R.id.container, fragment)
-                    addToBackStack(null)
+                    if (fragment is PreviewFragment) {
+                        replace(R.id.container, fragment)
+                        addToBackStack(PreviewFragment::class.java.name)
+                    }
                 }
-
+                Navigable.Destination.Edit -> {
+                    if (fragment is EditFragment) {
+                        replace(R.id.container, fragment)
+                        addToBackStack(EditFragment::class.java.name)
+                    }
+                }
             }
         }.commit()
     }

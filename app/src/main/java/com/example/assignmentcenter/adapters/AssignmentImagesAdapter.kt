@@ -24,7 +24,7 @@ class AssignmentImagesAdapter : RecyclerView.Adapter<AssignmentImagesViewHolder>
         R.drawable.baby, R.drawable.car, R.drawable.travel
     )
     private var selectedPosition: Int = 0
-    val selectedIdRes: Int
+    var selectedIdRes: Int = 0
         get() = images[selectedPosition]
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentImagesViewHolder {
