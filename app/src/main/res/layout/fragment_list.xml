@@ -10,10 +10,11 @@
         android:id="@+id/list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:elevation="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
         tools:liastitem="@layout/list_item" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <Button
         android:id="@+id/btSort"
@@ -36,27 +37,60 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
-    <Button
+    <!--<Button
         android:id="@+id/btAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="Add"
-        app:layout_constraintBottom_toBottomOf="@+id/btSort"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btSort"
-        app:layout_constraintTop_toTopOf="@+id/btSort" />
+        app:layout_constraintTop_toTopOf="@+id/guideline" />-->
+
+    <ImageButton
+        android:id="@+id/btAdd"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="16dp"
+        android:padding="8dp"
+        android:background="@drawable/round_button"
+        android:scaleType="centerInside"
+        android:src="@drawable/plus"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/itemCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btAdd"
-        app:layout_constraintEnd_toEndOf="@+id/btAdd"
-        app:layout_constraintStart_toStartOf="@+id/btAdd"
+        android:layout_marginStart="16dp"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list" />
+
+    <View
+        android:id="@+id/shadowLine"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@drawable/shadow_line"
+        android:elevation="1.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="5dp"
+        android:scaleType="centerCrop"
+        android:outlineProvider="bounds"
+        app:layout_constraintDimensionRatio="7.17:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

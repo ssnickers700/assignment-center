@@ -108,7 +108,7 @@ class ListFragment : Fragment(), AssignmentAdapter.OnClickListener {
     }
 
     private fun updateItemCount() {
-        binding.itemCount.text = "Items: ${adapter?.itemCount ?: 0}"
+        binding.itemCount.text = "${adapter?.itemCount ?: 0} assignments left"
     }
 
 }
