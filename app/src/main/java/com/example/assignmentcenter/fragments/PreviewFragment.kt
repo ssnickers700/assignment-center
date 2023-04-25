@@ -1,5 +1,6 @@
 package com.example.assignmentcenter.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -51,6 +52,32 @@ class PreviewFragment : Fragment() {
             }
             (activity as? Navigable)?.navigate(Navigable.Destination.Edit, editFragment)
         }
+
+        binding.share.setOnClickListener {
+            shareAssignment()
+        }
     }
+
+    private fun shareAssignment() {
+        val assignmentName = binding.assignmentNamePreview.text.toString()
+        val assignmentNote = binding.assignmentNotePreview.text.toString()
+        val assignmentPriority = binding.assignmentPriorityPreview.text.toString()
+
+        val emailBody = """
+            Assignment Details:
+            Name: $assignmentName
+            Note: $assignmentNote
+            Priority: $assignmentPriority
+        """.trimIndent()
+
+        val emailIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, "Assignment Details: $assignmentName")
+            putExtra(Intent.EXTRA_TEXT, emailBody)
+        }
+
+        startActivity(Intent.createChooser(emailIntent, "Share assignment via:"))
+    }
+
 
 }
