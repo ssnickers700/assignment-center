@@ -6,16 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.assignmentcenter.Navigable
 import com.example.assignmentcenter.R
-import com.example.assignmentcenter.adapters.AssignmentImagesAdapter
-import com.example.assignmentcenter.data.AssignmentDatabase
-import com.example.assignmentcenter.data.model.AssignmentEntity
-import com.example.assignmentcenter.databinding.FragmentEditBinding
 import com.example.assignmentcenter.databinding.FragmentPreviewBinding
 import com.example.assignmentcenter.model.Assignment
-import kotlin.concurrent.thread
 
 class PreviewFragment : Fragment() {
     private lateinit var binding: FragmentPreviewBinding
