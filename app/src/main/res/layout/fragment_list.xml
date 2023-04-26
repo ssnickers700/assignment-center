@@ -55,7 +55,7 @@
         android:padding="8dp"
         android:background="@drawable/round_button"
         android:scaleType="centerInside"
-        android:src="@drawable/plus"
+        android:src="@drawable/plus_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
