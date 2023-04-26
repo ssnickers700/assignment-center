@@ -42,6 +42,7 @@ class EditFragment : Fragment() {
             )
         }
 
+
         val assignment = arguments?.getParcelable<Assignment>("assignment")
         assignment?.let {
             binding.assignmentNameEdit.setText(it.name)
@@ -49,6 +50,8 @@ class EditFragment : Fragment() {
             binding.assignmentPriorityEdit.setText(it.priority.toString())
             adapter.selectedIdRes = it.resId
         }
+
+        binding.screenTitle.text = if(assignment == null) "Create assignment" else "Edit assignment"
 
         binding.save.setOnClickListener {
             val priorityInput = binding.assignmentPriorityEdit.text.toString()
