@@ -24,18 +24,18 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
 
-    <Button
+    <!--<Button
         android:id="@+id/btSort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Sort"
+        android:text=""
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btAdd"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline" />-->
 
     <!--<Button
         android:id="@+id/btAdd"

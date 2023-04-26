@@ -44,9 +44,9 @@ class ListFragment : Fragment(), AssignmentAdapter.OnClickListener {
             (activity as? Navigable)?.navigate(Navigable.Destination.Add)
         }
 
-        binding.btSort.setOnClickListener {
+        /*binding.btSort.setOnClickListener {
             adapter?.sort()
-        }
+        }*/
 
         adapter?.setOnClickListener(this)
     }
@@ -81,9 +81,9 @@ class ListFragment : Fragment(), AssignmentAdapter.OnClickListener {
 
     override fun onLongClick(assignment: Assignment) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Remove Assignment")
-            .setMessage("Are you sure you want to remove this item?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle(R.string.remove_alert_title)
+            .setMessage(R.string.remove_alert_body)
+            .setPositiveButton(R.string.yes) { _, _ ->
                 thread {
                     val assignmentDatabase = AssignmentDatabase.open(requireContext())
                     val assignmentEntity = assignmentDatabase.assignments.getAll().firstOrNull { it.id == assignment.id }
@@ -94,7 +94,7 @@ class ListFragment : Fragment(), AssignmentAdapter.OnClickListener {
                     }
                 }
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton(R.string.no, null)
             .show()
     }
 
@@ -108,7 +108,7 @@ class ListFragment : Fragment(), AssignmentAdapter.OnClickListener {
     }
 
     private fun updateItemCount() {
-        binding.itemCount.text = "${adapter?.itemCount ?: 0} assignments left"
+        binding.itemCount.text = resources.getString(R.string.counter_text, adapter?.itemCount ?: 0)
     }
 
 }

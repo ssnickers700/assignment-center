@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">Assignment Center</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yes">Yes</string>
+    <string name="no">No`</string>
+    <string name="remove_alert_title">Remove Assignment</string>
+    <string name="remove_alert_body">Are you sure you want to remove this assignment?</string>
+    <string name="counter_text">%1$d assignments left</string>
+    <string name="edit_screen_title">Edit assignment</string>
+    <string name="create_screen_title">Create assignment</string>
+    <string name="details_screen_title">Assignment details</string>
+    <string name="name">Name</string>
+    <string name="note">Note</string>
+    <string name="priority">Priority</string>
+    <string name="save">Save</string>
+    <string name="share_activity_title">Share assignment via:</string>
 </resources>

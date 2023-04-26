@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.assignmentcenter.adapters.AssignmentImagesAdapter
 import com.example.assignmentcenter.Navigable
+import com.example.assignmentcenter.R
 import com.example.assignmentcenter.data.AssignmentDatabase
 import com.example.assignmentcenter.data.model.AssignmentEntity
 import com.example.assignmentcenter.databinding.FragmentEditBinding
@@ -51,7 +52,11 @@ class EditFragment : Fragment() {
             adapter.selectedIdRes = it.resId
         }
 
-        binding.screenTitle.text = if(assignment == null) "Create assignment" else "Edit assignment"
+        binding.screenTitle.text =
+            if (assignment == null)
+                resources.getString(R.string.create_screen_title)
+            else
+                resources.getString(R.string.edit_screen_title)
 
         binding.save.setOnClickListener {
             val priorityInput = binding.assignmentPriorityEdit.text.toString()

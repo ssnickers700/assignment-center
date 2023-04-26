@@ -64,19 +64,19 @@ class PreviewFragment : Fragment() {
         val assignmentPriority = binding.assignmentPriorityPreview.text.toString()
 
         val emailBody = """
-            Assignment Details:
-            Name: $assignmentName
-            Note: $assignmentNote
-            Priority: $assignmentPriority
+            ${resources.getString(R.string.details_screen_title)}:
+            ${resources.getString(R.string.name)}: $assignmentName
+            ${resources.getString(R.string.note)}: $assignmentNote
+            ${resources.getString(R.string.priority)}: $assignmentPriority
         """.trimIndent()
 
         val emailIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_SUBJECT, "Assignment Details: $assignmentName")
+            putExtra(Intent.EXTRA_SUBJECT, "${R.string.details_screen_title}: $assignmentName")
             putExtra(Intent.EXTRA_TEXT, emailBody)
         }
 
-        startActivity(Intent.createChooser(emailIntent, "Share assignment via:"))
+        startActivity(Intent.createChooser(emailIntent, resources.getString(R.string.share_activity_title)))
     }
 
 

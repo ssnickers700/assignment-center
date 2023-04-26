@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Name"
+        android:text="@string/name"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/assignmentNameEdit"
         app:layout_constraintEnd_toStartOf="@+id/assignmentNameEdit"
@@ -71,7 +71,7 @@
         android:id="@+id/assignmentNoteLabelEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Note"
+        android:text="@string/note"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/assignmentNoteEdit"
         app:layout_constraintStart_toStartOf="@+id/assignmentNameLabelEdit" />
@@ -80,7 +80,7 @@
         android:id="@+id/assignmentPriorityLabelEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Priority"
+        android:text="@string/priority"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/assignmentPriorityEdit"
         app:layout_constraintStart_toStartOf="@+id/assignmentNoteLabelEdit" />
@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Save"
+        android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/images" />
 
@@ -113,7 +113,7 @@
         android:id="@+id/screenTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create assignment"
+        android:text="@string/create_screen_title"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/topBar"
